@@ -1,0 +1,15 @@
+{
+"parameters": { 
+
+    "__comment1__": "process_date: date that represets day of execution",
+    "__comment2__": "It is a string in 'YYYYMM' format",
+    "__comment3__": "If 'default', year  will be today's date",
+    
+    "process_date": "default",
+
+    "job":{
+        "parameter_1": "___",
+        "parameter_2": "____"
+        }
+    }
+}

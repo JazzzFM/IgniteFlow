@@ -1,0 +1,120 @@
+{
+"tables": {
+    "env": {
+
+        "PROD": {
+
+            "table_a": {
+                    "Architecture":["ecm"],
+                    "Source":["_________.___________"],
+                    "Lag":[2],
+                    "Mis name":["proc_dt"],
+                    "Cte name":["numcliente"]
+                },
+
+            "table_b": {
+                    "path":["data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_work"],
+                    "libname":["______"],
+                    "table_name":["__________"],
+                    "select_variables":
+                        ["to_date(cast(unix_timestamp(proc_dt,'yyyy-MM-dd') as timestamp)) as proc_dt,numcliente,crd_acct_nbr"],
+                    "type_date":["YYMM"],
+                    "retraso":["2"],
+                    "# mis":["12"],
+                    "flag_monthly":["0"],
+                    "name_mis":["proc_dt"],
+                    "table_pivote":["master_data"],
+                    "key_pivote":["numcliente"],
+                    "name_vintage_pivote":["vintage"],
+                    "key_source":["numcliente"]
+                },
+            
+                "table_c": {
+                    "path":["data/gcprcmsbx/work/hive/gcprcmsbx_work"],
+                    "libname":["________"],
+                    "table_name":["___________"],
+                    "select_variables":["NUMCLIENTE,CRD_ACCT_NBR,cast(anr as double),cast(anr_t0 as double), cast(mob as double), process_date"],
+                    "type_date":["YYYYMM"],
+                    "retraso":["2"],
+                    "# mis":["12"],
+                    "flag_monthly":["0"],
+                    "name_mis":["process_date"],
+                    "table_pivote":["master_data"],
+                    "key_pivote":["crd_acct_nbr"],
+                    "name_vintage_pivote":["vintage_date"],
+                    "key_source":["crd_acct_nbr"]
+            },
+
+           "score_table":{
+                "path": "a",
+                "libname": "__________",
+                "table_name": "___________"
+                },
+
+            "campania": {
+                "name": "________.__________"
+                }
+            },
+
+
+        "UAT": {
+
+            "table_a": {
+                    "Architecture":["ecm"],
+                    "Source":["______._____"],
+                    "Lag":[2],
+                    "Mis name":["proc_dt"],
+                    "Cte name":["numcliente"]
+                },
+
+            "table_b":{
+                    "path":["data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_work"],
+                    "libname":["_____"],
+                    "table_name":["_______"],
+                    "select_variables":
+                        ["to_date(cast(unix_timestamp(proc_dt,'yyyy-MM-dd') as timestamp)) as proc_dt,numcliente,crd_acct_nbr"],
+                    "type_date":["YYMM"],
+                    "retraso":["2"],
+                    "# mis":["12"],
+                    "flag_monthly":["0"],
+                    "name_mis":["proc_dt"],
+                    "table_pivote":["master_data"],
+                    "key_pivote":["numcliente"],
+                    "name_vintage_pivote":["vintage"],
+                    "key_source":["numcliente"]
+                },
+
+            "table_c":{
+                    "path":["data/gcprcmsbx/work/hive/gcprcmsbx_work"],
+                    "libname":["______"],
+                    "table_name":["______"],
+                    "select_variables":["NUMCLIENTE,CRD_ACCT_NBR,cast(anr as double),cast(anr_t0 as double), cast(mob as double)"],
+                    "type_date":["YYYYMM"],
+                    "retraso":["2"],
+                    "# mis":["12"],
+                    "flag_monthly":["1"],
+                    "name_mis":["proc_dt"],
+                    "table_pivote":["master_data"],
+                    "key_pivote":["crd_acct_nbr"],
+                    "name_vintage_pivote":["vintage_date"],
+                    "key_source":["crd_acct_nbr"]
+                },
+            
+            "score_table":{
+                "path": "a",
+                "libname": "__________",
+                "table_name": "____"
+                },
+
+            "campania":{
+                "name": "___________._____________" 
+            },
+
+            "BST": {
+                "name": "_____________._________"
+            }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,58 @@
+{ 
+    "app_config" : {
+       
+        "default": {
+            "spark.yarn.queue" : "root.cognitive",
+            "spark.dynamicAllocation.minExecutors": "0",
+            "spark.dynamicAllocation.maxExecutors": "300",
+            "spark.dynamicAllocation.initialExecutors": "50",
+            "spark.sql.shuffle.partitions": "25",
+            "spark.executor.cores": "5",
+            "spark.dynamicAllocation.enabled": "True",
+            "spark.executor.memory":"20g",
+            "spark.memory.storageFraction": "0.1",
+            "spark.scheduler.mode": "FAIR",
+            "spark.ui.enabled": "True",
+            "spark.sql.autoBroadcastJoinThreshold": "-1",
+            "spark.driver.memory": "24g",
+            "spark.network.timeout" : "1200s",
+            "spark.sql.broadcastTimeout" : "1200",
+            "spark.port.maxRetries" : "100",
+            "spark.yarn.maxAppAttempts": "100"
+        },
+
+        "data_quality" : {
+            "appName" : "ModelGovernance_data_quality",
+            "logging_path" : "logs/",
+            "logging_level" : "WARN",
+            "spark_config" : {
+                "spark.yarn.queue" : "root.cognitive",
+                "spark.executor.memory" : "10g",
+                "spark.executor.memoryOverhead" : "3g",
+                "spark.executor.cores" : "5",
+                "spark.driver.memory" : "5g",
+                "spark.sql.autoBroadcastJoinThreshold" : "-1",
+                "spark.executor.pypspark.memory" : "5g",
+                "spark.network.timeout" : "1200s",
+                "spark.sql.broadcastTimeout" : "1200",
+                "spark.hadoop.hive.exec.dynamic.partition.mode" : "nonstrict",
+                "spark.port.maxRetries" : "100",
+                "spark.yarn.maxAppAttempts": "100"}
+        },
+        
+
+        "copy_bts" : {
+                "appName" : "copy_bts_mgf",
+                "logging_path" : "logs/",
+                "logging_level" : "WARN",
+                "spark_config" : "default"
+        },
+
+        "job_name" : {
+                "appName" : "job_name_mgf",
+                "logging_path" : "logs/",
+                "logging_level" : "WARN",
+                "spark_config" : "default"
+        }
+    }  
+}

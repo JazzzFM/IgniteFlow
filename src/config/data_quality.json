@@ -1,0 +1,33 @@
+{
+"data_quality": {
+    "env": {
+        "UAT": {
+
+        "tables": {
+            "name_1": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_2": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_3": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_4": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" }
+    },
+
+        "email": {
+            "sender": "dl.gct.mx.cs.operational.maintenance",
+            "recivers": ["soeid"] }
+    },
+
+    "PROD": {
+
+        "tables": {
+            "name_1": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_2": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_3": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" },
+            "name_4": {"name": "_______", "partition": "___", "periodicity": "___", "ingestion_date": "___", "dt_format": "___", "periods": "___", "lag": "___" }
+        },
+
+        "email": {
+            "sender": "dl.gct.mx.cs.operational.maintenance",
+            "recivers": ["soeid"] }
+            }
+        }
+    }
+}

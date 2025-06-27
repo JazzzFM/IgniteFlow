@@ -1,0 +1,131 @@
+{
+  "recommendation_system": {
+    "data": {
+      "ratings": {
+        "path": "s3a://igniteflow-data/ratings/",
+        "format": "parquet",
+        "schema": "ratings_schema"
+      },
+      "users": {
+        "path": "s3a://igniteflow-data/users/",
+        "format": "parquet",
+        "schema": "users_schema"
+      },
+      "items": {
+        "path": "s3a://igniteflow-data/items/",
+        "format": "parquet",
+        "schema": "items_schema"
+      }
+    },
+    "model": {
+      "name": "recommendation_model",
+      "version": "1.0.0",
+      "user_column": "user_id",
+      "item_column": "item_id",
+      "rating_column": "rating",
+      "min_interactions": 5,
+      "num_recommendations": 10,
+      "als": {
+        "rank": 50,
+        "max_iter": 20,
+        "reg_param": 0.1,
+        "alpha": 1.0
+      },
+      "output_path": "s3a://igniteflow-models/recommendation-system/",
+      "recommendations_output_path": "s3a://igniteflow-outputs/recommendations/"
+    },
+    "training": {
+      "test_size": 0.2,
+      "random_state": 42,
+      "cross_validation_folds": 3,
+      "hyperparameter_tuning": {
+        "rank": [10, 20, 50],
+        "reg_param": [0.01, 0.1, 0.2],
+        "max_iter": [10, 20, 30]
+      }
+    },
+    "content_based": {
+      "enabled": true,
+      "similarity_threshold": 0.7,
+      "content_features": [
+        "genre",
+        "director",
+        "year",
+        "rating"
+      ]
+    }
+  },
+  "mlflow": {
+    "enabled": true,
+    "tracking_uri": "http://mlflow:5000",
+    "experiment_name": "recommendation_experiments",
+    "registry_uri": "s3://mlflow-artifacts"
+  },
+  "data_quality": {
+    "enabled": true,
+    "fail_on_error": false,
+    "schemas": {
+      "ratings_schema": {
+        "columns": [
+          "user_id",
+          "item_id",
+          "rating",
+          "timestamp"
+        ]
+      },
+      "users_schema": {
+        "columns": [
+          "user_id",
+          "age",
+          "gender",
+          "occupation"
+        ]
+      },
+      "items_schema": {
+        "columns": [
+          "item_id",
+          "title",
+          "genre",
+          "year",
+          "director"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "name": "ratings_completeness",
+        "type": "completeness",
+        "columns": ["user_id", "item_id", "rating"],
+        "threshold": 0.98
+      },
+      {
+        "name": "user_completeness",
+        "type": "completeness",
+        "columns": ["user_id", "age"],
+        "threshold": 0.85
+      },
+      {
+        "name": "item_completeness",
+        "type": "completeness",
+        "columns": ["item_id", "title", "genre"],
+        "threshold": 0.90
+      },
+      {
+        "name": "rating_uniqueness",
+        "type": "uniqueness",
+        "columns": ["user_id", "item_id"],
+        "threshold": 0.95
+      }
+    ],
+    "ranges": {
+      "rating_range": {
+        "min": 1.0,
+        "max": 5.0
+      },
+      "year_range": {
+        "min": 1900,
+        "max": 2024
+      }
+    }
+  }
+}
