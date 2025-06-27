@@ -6,10 +6,16 @@ and shared functionality for all IgniteFlow pipelines, following SOLID principle
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 import logging
 
-from pyspark.sql import SparkSession
+# Optional PySpark import
+try:
+    from pyspark.sql import SparkSession
+    SPARK_AVAILABLE = True
+except ImportError:
+    SparkSession = None
+    SPARK_AVAILABLE = False
 
 
 class BasePipeline(ABC):
@@ -25,14 +31,17 @@ class BasePipeline(ABC):
         logger: Logger instance for this pipeline
     """
     
-    def __init__(self, spark: SparkSession, config: Dict[str, Any]) -> None:
+    def __init__(self, spark: Optional[Union['SparkSession', Any]], config: Dict[str, Any]) -> None:
         """
         Initialize the pipeline with Spark session and configuration.
         
         Args:
-            spark: Spark session instance
+            spark: Spark session instance (optional if PySpark not available)
             config: Configuration dictionary
         """
+        if not SPARK_AVAILABLE and spark is not None:
+            raise ImportError("PySpark is required but not available")
+            
         self.spark = spark
         self.config = config
         self.logger = logging.getLogger(self.__class__.__name__)
