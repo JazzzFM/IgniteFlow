@@ -1,0 +1,159 @@
+{
+    "tables": {
+
+            "Table_crd_transactional_inventada": {
+                "table_name": "int_crd_txn_t_d_inventada",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt",
+                "columns": [
+                    {"field": "num_cliente", "field_hive": "num_cliente", "field_type": "BIGINT"},
+                    {"field": "wof", "field_hive":"wof","field_type": "DOUBLE"},
+                    {"field": "woacum", "field_hive":"woacum","field_type": "DOUBLE"},
+                    {"field": "unuse_line", "field_hive": "unuse_line","field_type": "DOUBLE"},
+                    {"field": "e120", "field_hive": "e120", "field_type": "DOUBLE"},
+                    {"field": "bucket", "field_hive": "bucket", "field_type": "STRING"},
+                    {"field": "saldo_contable", "field_hive": "saldo_contable","field_type": "DOUBLE"},
+                    {"field": "vintage", "field_hive": "vintage","field_type":"STRING"},
+                    {"field": "fultpago", "field_hive": "fultpago", "field_type": "DOUBLE"},
+                    {"field": "num_cuenta", "field_hive": "num_cuenta", "field_type": "BIGINT"},
+                    {"field": "folio", "field_hive": "folio", "field_type": "STRING"},
+                    {"field": "mis_dt", "field_hive": "mis_dt", "field_type": "STRING"}]
+            },
+
+            "Table_CRD_EPP_SNAPSHOT_M": {
+                "table_name": "int_crd_epp_snapshot_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "Table_Crd_Plan_Snapshot_C": {
+                "table_name": "int_crd_plan_snapshot_c_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "Table_Crd_Plan_Snapshot_M": {
+                "table_name": "int_crd_plan_snapshot_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "Table_Porfolio_master": {
+                "table_name": "int_crd_portfolio_master_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "process_date"},
+
+            "Table_Portfolio_snapshot": {
+                "table_name": "int_crd_portfolio_snapshot_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "Table_Crd_epp_snapshot_d": {
+                "table_name": "int_crd_epp_snapshot_t_d",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "ecm3": {
+                "table_name": "int_xs_ecm3_cta_hist_t_m",
+                "table_prod_db": "gcgdlkmxpsd_cus_db",
+                "table_uat_db": "gcgdlkmxusd_cus_db",
+                "table_sbx_db": "gcgdlkmxpsd_cus_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "proc_dt"},
+
+            "Table_segmetacion": {
+                "table_name": "int_xs_prc_spmf_hist",
+                "table_prod_db": "gcgdlkmxpsd_cams_db",
+                "table_uat_db": "gcgdlkmxusd_cams_db",
+                "table_sbx_db": "gcgdlkmxpsd_cams_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "proc_dt"},
+
+            "Table_PLASTIC_MASTER": {
+                "table_name": "int_crd_plastic_master_t_d",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "Table_PLASTIC_SNAPSHOT": {
+                "table_name": "int_crd_plastic_snapshot_t_m",
+                "table_prod_db": "gcgdlkmxpsd_prd_db",
+                "table_uat_db": "gcgdlkmxusd_prd_db",
+                "table_sbx_db": "gcgdlkmxpsd_prd_db",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "mis_dt"},
+
+            "ccp_prima": {
+                "table_name": "a_cstsvc_ccst_cst_modl_inf_ac_rev_sum_m",
+                "table_prod_db": "gcgdlkmxprp_cus_db",
+                "table_uat_db": "gcgdlkmxurp_cus_db",
+                "table_sbx_db": "gcgaacqmxpysp_work",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "informationdate"},
+
+            "final_features": {
+                "table_name": "a_cstsvc_ccst_cst_final_ftr_scor_sum_m",
+                "table_prod_db": "gcgdlkmxprp_cus_db",
+                "table_uat_db": "gcgdlkmxurp_cus_db",
+                "table_sbx_db": "gcgaacqmxpysp_work",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "informationdate"},
+
+            "scoring_table": {
+                "table_name": "a_cstsvc_ccst_cst_rfs_scor_modl_sum_m",
+                "table_prod_db":"gcgdlkmxprp_cus_db",
+                "table_uat_db": "gcgdlkmxurp_cus_db",
+                "table_sbx_db": "gcgaacqmxpysp_work",
+                "table_prod_path": "",
+                "table_sbx_path": "",
+                "table_uat_path": "",
+                "table_partition_field": "informationdate"}
+        }
+}
+

@@ -1,0 +1,257 @@
+{
+    "metrics": {
+
+    "default": {
+    "csi_dict": {
+        "sdo_venc_cliente": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<6755", "otherwise"], "count": [0, 0, 301917, 100645]},
+        "util_tdc": {"bin": [1, 2, 3, 4], "def": ["<-1", "<0.0527059", "<0.9098824", "otherwise"], "count": [0, 201281, 100641, 100640]},
+        "total_max_mop_3m": {"bin": [1, 2, 3, 4], "def": ["<1", "<1", "<2", "otherwise"], "count": [64987, 0, 206866, 130709]},
+        "maxlim_cliente": {"bin": [1, 2, 3, 4], "def": ["<11360", "<38148", "<164014", "otherwise"], "count": [100638, 100643, 100633, 100648]},
+        "pago_pagmin": {"bin": [1, 2, 3, 4], "def": ["<0", "<206", "<1712", "otherwise"], "count": [0, 201280, 100630, 100652]},
+        "newest_tdc": {"bin": [1, 2, 3, 4], "def": ["<-1", "<4", "<16", "otherwise"], "count": [0, 197784, 100074, 104704]},
+        "sdo_vig_cliente": {"bin": [1, 2, 3, 4], "def": ["<5882", "<31321.5", "<169049", "otherwise"], "count": [100639, 100642, 100640, 100641]},
+        "total_max_mop_full": {"bin": [1, 2, 3, 4], "def": ["<2", "<4", "<9", "otherwise"], "count": [96803 ,103156 ,71765 ,130838]},
+        "antq_firstcred_y": {"bin": [1, 2, 3, 4], "def": ["<4.1666667", "<6.9166667", "<11", "otherwise"], "count": [100778, 102444, 97251, 102089]},
+        "util_tdc_rev": {"bin": [1, 2, 3, 4], "def": ["<-1", "<0.0410097", "<0.8984992", "otherwise"], "count": [0 ,201281 ,100640 ,100641]},
+        "oldest_tdc": {"bin": [1, 2, 3, 4], "def": ["<-1", "<10", "<49", "otherwise"], "count": [0, 200530, 100824, 101208]},
+        "pago_cliente": {"bin": [1, 2, 3, 4], "def": ["<709", "<3305", "<9530", "otherwise"], "count": [100603, 100658, 100650, 100651]},
+        "tdc_rev_max_mx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<6", "<23", "otherwise"], "count": [0, 193550, 105210, 103802]},
+        "mob_lastpurch_tdc_rev": {"bin": [1, 2, 3, 4], "def": ["<-1", "<0", "<1", "otherwise"], "count": [0, 181192, 37641, 183729]},
+        "mob_lastpurch_pers": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<2", "otherwise"], "count": [0, 0, 299574, 102988]},
+        "util_lineacred": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<0.239904", "otherwise"], "count": [0, 0, 301921, 100641]},
+        "total_rchp_1m": {"bin": [1, 2, 3, 4], "def": ["<0.0354167", "<0.2236871", "<0.75", "otherwise"], "count": [100641, 100640, 100506, 100775]},
+        "total_last_1mop": {"bin": [1, 2, 3, 4], "def": ["<2", "<3", "<6", "otherwise"], "count": [19433, 126706, 155545, 100878]},
+        "oldest_cp": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<7", "otherwise"], "count": [0, 0, 301264, 101298]},
+        "total_max_mop_6m": {"bin": [1, 2, 3, 4], "def": ["<1", "<1", "<7", "otherwise"], "count": [28521, 0, 264779, 109262]},
+        "util_nomina": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<-1", "otherwise"], "count": [0, 0, 0, 402562]},
+        "total_last_3mop": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<15", "otherwise"], "count": [1955, 0, 298296, 102311]},
+        "newest_com": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<18", "otherwise"], "count": [0, 0, 300797, 101765]},
+        "tdc_rev_max_view": {"bin": [1, 2, 3, 4], "def": ["<-3", "<22", "<51", "otherwise"], "count": [0, 200844, 100979, 100739]},
+        "maxlim_comunicaciones": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<1458", "otherwise"], "count": [0, 0, 301903, 100659]},
+        "pymt_comunicaciones": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<283", "otherwise"], "count": [0, 0, 301921, 100641]},
+        "open_cred": {"bin": [1, 2, 3, 4], "def": ["<2", "<4", "<6", "otherwise"], "count": [79389, 117864, 86692, 118617]},
+        "micofinanciera_max_rmx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<0.1388889", "otherwise"], "count": [0, 0, 301975, 100587]},
+        "util_personal": {"bin": [1, 2, 3, 4], "def": ["<-1", "<0", "<0.3934215", "otherwise"], "count": [0, 188445, 113477, 100640]},
+        "pago_quincenal": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<0", "otherwise"], "count": [0, 0, 0, 402562]},
+        "maxlim_personal": {"bin": [1, 2, 3, 4], "def": ["<0", "<3571", "<23489", "otherwise"], "count": [0, 201279, 100636, 100647]},
+        "sdo_vig_lineacred": {"bin": [1, 2, 3, 4], "def": ["<0","<0","<1590","otherwise"], "count": [0, 0, 301913, 100649]},
+        "comunicaciones_max_rmx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<0.75", "otherwise"], "count": [0, 0, 300070, 102492]},
+        "util_comunicaciones": {"bin": [1, 2, 3, 4], "def": ["<-1", "<-1", "<0", "otherwise"], "count": [0, 0, 206298, 196264]},
+        "open_bmx_creds": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<1", "otherwise"], "count": [0, 0, 107070, 35690]},
+        "total_last_7mop": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<0", "otherwise"], "count": [1955, 0, 0, 400607]},
+        "total_mx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<8", "<16", "<24", "otherwise"], "count": [100352, 97502, 80995, 123713]},
+        "comunicaciones_min_view": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<25", "otherwise"], "count": [0, 0, 301325, 101237]},
+        "automovil_max_mx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<-3", "otherwise"], "count": [0, 0, 0, 402562]},
+        "total_max_mop_24m": {"bin": [1, 2, 3, 4], "def": ["<1", "<1", "<2", "otherwise"], "count": [72685, 0, 185158, 144719]},
+        "pctg_open_micofinanciera": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<0", "otherwise"], "count": [20443, 0, 0, 382119]},
+        "bmx_creds": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<1", "otherwise"], "count": [0, 0, 257533, 145029]},
+        "total_rchp_5m": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<0.0018173", "otherwise"], "count": [2221, 0, 299701, 100640]},
+        "lineacred_min_view": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<25", "otherwise"], "count": [0, 0, 288834, 113728]},
+        "tdc_rev_max_rmx_streak_2m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<0", "<0.0149254", "otherwise"], "count": [0, 135301, 166641, 100620]},
+        "lineacred_max_rmx_streak_1m": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<0.3913043", "otherwise"], "count": [0, 0, 301871, 100691]},
+        "total_rch_1m_9c": {"bin": [1, 2, 3, 4], "def": ["<0", "<3", "<12", "otherwise"], "count": [1955, 167257, 128481, 104869]},
+        "total_last_2mop": {"bin": [1, 2, 3, 4], "def": ["<0", "<4", "<17", "otherwise"], "count": [1955, 190833, 105077, 104697]},
+        "total_max_mop_15m": {"bin": [1, 2, 3, 4], "def": ["<1", "<1", "<3", "otherwise"], "count": [41511, 0, 251056, 109995]},
+        "total_last_5mop": {"bin": [1, 2, 3, 4], "def": ["<0", "<0", "<6", "otherwise"], "count": [1955, 0, 296967, 103640]},
+        "comunicaciones_max_rch_1m_6c": {"bin": [1, 2, 3, 4], "def": ["<-3", "<-3", "<3", "otherwise"], "count": [0, 0, 262020, 140542]}
+>>>>>>> 247a4e9fa37521e1275a1eeeea6f82397ad61a7d
+    },
+    "predictors": ["sdo_venc_cliente",
+                    "total_max_mop_6m",
+                    "maxlim_cliente",
+                    "open_cred",
+                    "total_max_mop_full",
+                    "newest_tdc",
+                    "sdo_vig_cliente",
+                    "util_tdc",
+                    "total_max_mop_3m",
+                    "util_tdc_rev",
+                    "antq_firstcred_y",
+                    "pago_pagmin",
+                    "total_last_5mop",
+                    "pago_cliente",
+                    "oldest_tdc",
+                    "total_last_7mop",
+                    "pymt_comunicaciones",
+                    "total_max_mop_15m",
+                    "mob_lastpurch_tdc_rev",
+                    "util_nomina",
+                    "pctg_open_micofinanciera",
+                    "tdc_rev_max_mx_streak_1m",
+                    "total_rchp_5m",
+                    "total_last_1mop",
+                    "comunicaciones_max_rmx_streak_1m",
+                    "micofinanciera_max_rmx_streak_1m",
+                    "automovil_max_mx_streak_1m",
+                    "newest_com",
+                    "bmx_creds",
+                    "tdc_rev_max_view",
+                    "util_comunicaciones",
+                    "lineacred_min_view",
+                    "tdc_rev_max_rmx_streak_2m",
+                    "lineacred_max_rmx_streak_1m",
+                    "util_personal",
+                    "mob_lastpurch_pers",
+                    "comunicaciones_min_view",
+                    "total_max_mop_24m",
+                    "oldest_cp",
+                    "total_rchp_1m",
+                    "pago_quincenal",
+                    "maxlim_personal",
+                    "total_last_3mop",
+                    "comunicaciones_max_rch_1m_6c",
+                    "open_bmx_creds",
+                    "total_last_2mop",
+                    "sdo_vig_lineacred",
+                    "total_rch_1m_9c",
+                    "total_mx_streak_1m",
+                    "util_lineacred",
+                    "maxlim_comunicaciones"]
+
+        },
+
+        "env": {
+            "UAT": {
+                "pivot": {
+                    "type_table": "hive",
+                    "name": "gcgdlkmxusd_cus_db.modellin_inputs_intl_t_m",
+                    "partition": "pcs_date",
+                    "key": "numcliente",
+                    "vars_select": "vintage_date",
+                    "proc_dt": "last"},
+
+                "feature": {
+                    "type_table": "hive",
+                    "name": "gcgdlkmxusd_cus_db.modellin_inputs_intl_t_m",
+                    "partition": "pcs_date",
+                    "key": "numcliente",
+                    "vars_select": ["vintage_date", "all_features_vector"],
+                    "feature_column": "all_features_vector",
+                    "proc_dt": "last",
+                    "type": "string"
+                    },
+
+                "score": {
+                    "type_table": "hive",
+                    "name": "gcgdlkmxusd_cus_db.modellin_score_intl_t_m",
+                    "partition": "pcs_date",
+                    "key": "datos_demograficos",
+                    "vars_select": "vintage_date, probability_intl_0",
+                    "proc_dt": "last"},
+
+                "general_metrics_tables": {
+                    "SCORE_DATA_BASE": "gcgdlkmxpsu_cus_db",
+                    "SCORE_TABLE_NAME": "camelot_final_score_t_m",
+                    "CORP_DATA_BASE":"gcgdlkmxusd_cus_db",
+                    "CORP_TABLE_NAME":"cust_corp_profile_t_m",
+                    "LAYER": "/data/gcgdlkmxusd/standardization/hive/",
+                    "METRICS_DB_1": "gcgdlkmxusd_cus_db",
+                    "METRICS_DB_2": "gcgdlkmxusd_ctr_db",
+                    "METRIC_TABLE_1": "int_met_dc1_mo_w_trgt_perf_t_m",
+                    "METRIC_TABLE_2": "int_met_dc2_current_mo_t_m",
+                    "METRIC_TABLE_3": "int_met_dc3_perf_ovrl_cntl_t_m",
+                    "METRIC_TABLE_4": "int_met_dc4_sf_w_scor_trgt_cntl_t_m",
+                    "METRIC_TABLE_5": "int_met_dc5_sf_w_scor_crn_cntl_t_m",
+                    "METRIC_TABLE_6": "int_met_dc6_psi_scor_csi_ftr_all_cntl_t_m",
+                    "METRIC_TABLE_7": "int_met_dc7_psi_scor_csi_ftr_all_crn_cntl_t_m",
+                    "METRIC_TABLE_8": "int_met_dc8_csi_ftr_psi_scor_perf_mo_cntl_t_m",
+                    "METRIC_TABLE_9": "int_met_dc9_csi_ftr_psi_scor_crn_cntl_t_m",
+                    "METRIC_TABLE_10": "int_met_dc10_perf_by_decile_cntl_t_m",
+                    "PATH_RELATIVE_IMPORTANCE": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data/relative_importance"
+                },
+                "paths":{
+                    "PATH_PIVOT" : "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data/pivot_tables",
+                    "PATH_HISTORIC": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data/historic",
+                    "PATH_PROCESSED": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data/processed",
+                    "PATH_FEATURES": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data",
+                    "PATH_PERCENTILE": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data",
+                    "PATH_ARCHITECTURE": "/data/gcgaeapmxcgnu/work/hive/gcgaeapmxcgnu_work/camelot_data",
+                    "CONFIG_PATH": "CONFIG_PATH + camelot_config.py",
+                    "SCHEMA_PATH": "CONFIG_PATH + schema_config.py",
+                    "LOGS_PATH": "LOGS_PATH",
+                    "MODEL_PATH": "LOCAL_DIR_PATH + /static/",
+                    "UTILS_PATH": "BIN_PATH + /utils/",
+                    "METRICS_PATH": "BIN_PATH + /Metrics_calculation/"
+                }
+
+            },
+
+            "PROD": {
+                "pivot_generation_module":{
+                    "SANDBOX_NAME": "gcgdlkmxpsd_cus_db",
+                    "CORP_TABLE": "cust_corp_profile_t_m"
+                },
+                "corporate_generation_module":{
+                    "SANDBOX_MERLO": "gcgdlkmxpsd_cams_db",
+                    "SANDBOX_NAME": "gcgdlkmxpsd_prd_db",
+                    "NOMINA_DB": "nomina_t_m",
+                    "ASIGNA_N_DB": "asigna_nomina_t_m",
+                    "WORKING_PATH":"/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/corporate_module"
+                },
+                "corporate_module_tables": {
+                    "PATH": "/data/gcgdlkmxpsd/standardization/hive/gcgdlkmxpsd_prd_db",
+                    "LIBNAME":"gcgdlkmxpsd_cus_db",
+                    "TABLE_NAME":"cust_corp_profile_t_m"
+                },
+                "liabilities_module_tables": {
+                    "PATH": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_work",
+                    "LIBNAME": "gcgdlkmxpsd_prd_db",
+                    "ALL_TABLES": ["snapshot_maestra_t_m","snapshot_perfiles_t_m","snapshot_perf_ejec_t_m","snapshot_cheques_t_m","snapshot_otros_t_m","snapshot_pagomatico_t_m"],
+                    "MAESTRA_TB": "snapshot_maestra_t_m",
+                    "PERFILES_TB": "snapshot_perfiles_t_m",
+                    "PEJE_TB": "snapshot_perf_ejec_t_m",
+                    "CHEQUES_TB": "snapshot_cheques_t_m",
+                    "OTROS_TB": "snapshot_otros_t_m",
+                    "PAGOMATICO_TB":"snapshot_pagomatico_t_m"
+                },
+                "metrics_target_module":{
+                    "WORKING_PATH":"/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/corporate_module",
+                    "name_hist": "01_CLIENTE_MMYY/cliente_",
+                    "path_save":"/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/corporate_module/TARGET"
+                },
+
+                "camelot_score_table": {
+                    "SCORE_TABLE": "camelot_final_score_t_m",
+                    "DATA_BASE": "gcgdlkmxpsd_cus_db",
+                    "LAYER": "/data/gcgdlkmxpsd/standardization/hive/",
+                    "camelot_final_score": "gcgdlkmxpsd_cus_db.camelot_final_score_t_m"
+                },
+
+                "camelot_metrics_tables": {
+                    "SCORE_DATA_BASE": "gcgdlkmxpsd_cus_db",
+                    "SCORE_TABLE_NAME": "camelot_final_score_t_m",
+                    "CORP_DATA_BASE":"gcgdlkmxpsd_cus_db",
+                    "CORP_TABLE_NAME":"cust_corp_profile_t_m",
+                    "LAYER": "/data/gcgdlkmxpsd/standardization/hive/",
+                    "METRICS_DB_1": "gcgdlkmxpsd_cus_db",
+                    "METRICS_DB_2": "gcgdlkmxpsd_ctr_db",
+                    "METRIC_TABLE_1": "int_met_dc1_mo_w_trgt_perf_t_m",
+                    "METRIC_TABLE_2": "int_met_dc2_current_mo_t_m",
+                    "METRIC_TABLE_3": "int_met_dc3_perf_ovrl_cntl_t_m",
+                    "METRIC_TABLE_4": "int_met_dc4_sf_w_scor_trgt_cntl_t_m",
+                    "METRIC_TABLE_5": "int_met_dc5_sf_w_scor_crn_cntl_t_m",
+                    "METRIC_TABLE_6": "int_met_dc6_psi_scor_csi_ftr_all_cntl_t_m",
+                    "METRIC_TABLE_7": "int_met_dc7_psi_scor_csi_ftr_all_crn_cntl_t_m",
+                    "METRIC_TABLE_8": "int_met_dc8_csi_ftr_psi_scor_perf_mo_cntl_t_m",
+                    "METRIC_TABLE_9": "int_met_dc9_csi_ftr_psi_scor_crn_cntl_t_m",
+                    "METRIC_TABLE_10": "int_met_dc10_perf_by_decile_cntl_t_m",
+                    "PATH_RELATIVE_IMPORTANCE": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/relative_importance"
+                },
+
+                "paths":{
+                    "PATH_PIVOT" : "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/pivot_tables",
+                    "PATH_HISTORIC": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/historic",
+                    "PATH_PROCESSED": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot/processed",
+                    "PATH_FEATURES": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot",
+                    "PATH_PERCENTILE": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot",
+                    "PATH_ARCHITECTURE": "/data/gcgdlkmxpsd/work/hive/gcgdlkmxpsd_cgntv_srvcs_work/camelot",
+                    "CONFIG_PATH": "CONFIG_PATH + camelot_config.py",
+                    "SCHEMA_PATH": "CONFIG_PATH + schema_config.py",
+                    "LOGS_PATH": "LOGS_PATH",
+                    "MODEL_PATH": "LOCAL_DIR_PATH + /static/",
+                    "UTILS_PATH": "BIN_PATH + /utils/",
+                    "METRICS_PATH": "BIN_PATH + /Metrics_calculation/"}
+                }
+            }
+        }
+}

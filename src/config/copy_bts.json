@@ -1,0 +1,34 @@
+{
+"copy_bts": {
+
+    "default": {
+            "model_id": "_____",
+            "partition": "____",
+            "cust_id": "_____",
+            "date_format": "_____",
+            "score_model_name": "_____",
+            "info_date": "_____",
+            "model_type": "0",
+            "measure_name": "decile",
+            "decile": "False",
+            "bins_min": ["____", "_____", "_____", "_____", "_____", "_____", "_____", "_____", "_____", "_____"],
+            "bins_max": ["____", "_____", "_____", "_____", "_____", "_____", "_____", "_____", "_____", "_____"]
+            },
+
+    "env": {
+
+        "UAT": {
+            "model_score_table": "___________",
+            "big_table_score": "gcgaeapmxcgnu_managed.big_table_scores_t_m",
+            "type_scores": "float"
+        },
+
+        "PROD": {
+            "model_score_table": "___________",
+            "big_table_score": "gcgaeapmxcgnp_managed.big_table_scores_t_m",
+            "type_scores": "double"
+        }
+      }
+   }
+}
+

@@ -1,0 +1,41 @@
+{
+    "config_custom": {
+        "default": {
+            "sources": ["___"],
+            "id_year": "___",
+            "id_camp": "___",
+            "year_id": "____",
+            "n_mis": "___",
+            "period": "___",
+            "lista_trans": ["____",
+                        "____"],
+            "email_sender": "____",
+            "email_receivers": ["___"],
+            "n_threads": "___",
+            "write_mode": "____",
+            "apr":"____",
+            "predictors": ["____",
+                            "____"],
+            "vector_aprs": ["___","___"]
+            },
+            "env":{
+                "UAT": {
+                    "base_path": "_____",
+                    "working_path": "____",
+                    "pivot_path": "____"
+                },
+                "PROD": {
+                    "table_camp_sdbx": "_____",
+                    "base_path": "____",
+                    "working_path": "_____",
+                    "pivot_path": "____"
+                },
+                "SBX": {
+                    "table_camp_sdbx": "_____",
+                    "base_path": "_____",
+                    "working_path": "____",
+                    "pivot_path": "_____"
+                }
+            }
+        }
+    }

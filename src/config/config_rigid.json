@@ -1,0 +1,166 @@
+{
+    "config_rigid":{
+        
+        "env":{
+            "SBX":{
+                "process" : {
+                    "extract" : {
+                        "libname":["___"],
+                        "table_name":["___"],
+                        "select_variables":["____"],
+                        "type_date":[""],
+                        "retraso":[3],
+                        "name_mis":["____"],
+                        "table_pivote":["___"],
+                        "key_pivote":["____"],
+                        "name_vintage_pivote":["____"],
+                        "key_source":["____"]
+                    },
+                    "missing_treatment":{   
+                        "fill_variables":{
+                                "variable": ["___","___"], 
+                                "source": ["___", "___"], 
+                                "metodo": ["____", "___"]
+                            },
+                        "fill_methods":{
+                                "metodo":["___"],
+                                "grouped":[["____"],["____"]],
+                                "valor":["____","____"],
+                                "id_variables":["____"]
+                                },
+                    "mobs":{
+                        "table_name":["___"],
+                        "source":["___"],
+                        "sources":["____"],
+                        "mobs_tipo":["____"]
+                        }
+                        
+                    },
+                    "group_by": {
+                        "table_name":"____",
+                        "group_by_key": ["____"],
+                        "query_dict": {
+                            "variable":["____"],
+                            "agg":["____"],
+                            "feature":["____"]
+                                }
+                    },
+                    "pivoting":{
+                        "source": "___",
+                        "table_name": "_____",
+                        "pivot_key": ["____"]
+                    },
+                    "steps_list": ["___"]
+                },
+                "list_no_mobs":["___","___"]
+            },
+            "PROD":{
+    
+                "process" : {
+                    "extract" : {
+                        "libname":["___"],
+                        "table_name":["___"],
+                        "select_variables":["____"],
+                        "type_date":[""],
+                        "retraso":[3],
+                        "name_mis":["____"],
+                        "table_pivote":["___"],
+                        "key_pivote":["____"],
+                        "name_vintage_pivote":["____"],
+                        "key_source":["____"]
+                    },
+                    "missing_treatment":{   
+                        "fill_variables":{
+                                "variable": ["___","___"], 
+                                "source": ["___", "___"], 
+                                "metodo": ["____", "___"]
+                            },
+                        "fill_methods":{
+                                "metodo":["___"],
+                                "grouped":[["____"],["____"]],
+                                "valor":["____","____"],
+                                "id_variables":["____"]
+                                },
+                    "mobs":{
+                        "table_name":["___"],
+                        "source":["___"],
+                        "sources":["____"],
+                        "mobs_tipo":["____"]
+                        }
+                        
+                    },
+                    "group_by": {
+                        "table_name":"____",
+                        "group_by_key": ["____"],
+                        "query_dict": {
+                            "variable":["____"],
+                            "agg":["____"],
+                            "feature":["____"]
+                                }
+                    },
+                    "pivoting":{
+                        "source": "___",
+                        "table_name": "_____",
+                        "pivot_key": ["____"]
+                    },
+                    "steps_list": ["___"]
+                },
+                "list_no_mobs":["___","___"]
+            },
+             "UAT":{
+                
+                "process" : {
+                    "extract" : {
+                        "libname":["___"],
+                        "table_name":["___"],
+                        "select_variables":["____"],
+                        "type_date":[""],
+                        "retraso":[3],
+                        "name_mis":["____"],
+                        "table_pivote":["___"],
+                        "key_pivote":["____"],
+                        "name_vintage_pivote":["____"],
+                        "key_source":["____"]
+                    },
+                    "missing_treatment":{   
+                        "fill_variables":{
+                                "variable": ["___","___"], 
+                                "source": ["___", "___"], 
+                                "metodo": ["____", "___"]
+                            },
+                        "fill_methods":{
+                                "metodo":["___"],
+                                "grouped":[["____"],["____"]],
+                                "valor":["____","____"],
+                                "id_variables":["____"]
+                                },
+                    "mobs":{
+                        "table_name":["___"],
+                        "source":["___"],
+                        "sources":["____"],
+                        "mobs_tipo":["____"]
+                        }
+                        
+                    },
+                    "group_by": {
+                        "table_name":"____",
+                        "group_by_key": ["____"],
+                        "query_dict": {
+                            "variable":["____"],
+                            "agg":["____"],
+                            "feature":["____"]
+                                }
+                    },
+                    "pivoting":{
+                        "source": "___",
+                        "table_name": "_____",
+                        "pivot_key": ["____"]
+                    },
+                    "steps_list": ["___"]
+                },
+                "list_no_mobs":["___","___"]
+                }        
+            }
+        }
+    }
+    
