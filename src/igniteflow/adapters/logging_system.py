@@ -341,12 +341,12 @@ def setup_logging(
             }
         },
         'loggers': {
-            'igniteflow_core': {
+            'igniteflow.adapters': {
                 'level': level,
                 'handlers': ['console'],
                 'propagate': False
             },
-            'examples': {
+            'igniteflow.application': {
                 'level': level,
                 'handlers': ['console'],
                 'propagate': False

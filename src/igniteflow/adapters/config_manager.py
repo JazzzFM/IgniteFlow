@@ -1,3 +1,4 @@
+
 """
 Configuration Management for IgniteFlow.
 
@@ -10,8 +11,9 @@ import os
 from pathlib import Path
 from typing import Dict, Any, Optional, Union, List
 import logging
+import yaml
 
-from .exceptions import ConfigurationError
+from igniteflow.domain.exceptions import ConfigurationError
 
 
 class ConfigurationManager:
@@ -72,7 +74,7 @@ class ConfigurationManager:
         Load all configuration files from the configuration directory.
         
         This method loads configurations in the following order:
-        1. Base configurations (*.json files)
+        1. Base configurations (*.json, *.yaml, *.yml files)
         2. Environment-specific overrides
         3. Environment variables
         """
@@ -85,6 +87,9 @@ class ConfigurationManager:
             
             # Apply environment variable overrides
             self._apply_env_var_overrides()
+
+            # Apply cloud secrets overrides
+            self._apply_cloud_secrets_overrides()
             
             self.logger.info(f"Configuration loaded successfully for environment: {self.environment}")
             
@@ -96,22 +101,27 @@ class ConfigurationManager:
     
     def _load_base_configs(self) -> None:
         """Load base configuration files."""
-        config_files = list(self.config_path.glob("*.json"))
+        config_files = list(self.config_path.glob("*.json")) + \
+                       list(self.config_path.glob("*.yaml")) + \
+                       list(self.config_path.glob("*.yml"))
         
         for config_file in sorted(config_files):
             try:
                 with open(config_file, 'r', encoding='utf-8') as f:
-                    config_data = json.load(f)
+                    if config_file.suffix in (".yaml", ".yml"):
+                        config_data = yaml.safe_load(f)
+                    else:
+                        config_data = json.load(f)
                 
                 config_name = config_file.stem
                 self.config_data[config_name] = config_data
                 
                 self.logger.debug(f"Loaded configuration: {config_name}")
                 
-            except json.JSONDecodeError as e:
+            except (json.JSONDecodeError, yaml.YAMLError) as e:
                 raise ConfigurationError(
-                    f"Invalid JSON in configuration file: {config_file}",
-                    error_code="INVALID_JSON",
+                    f"Invalid format in configuration file: {config_file}",
+                    error_code="INVALID_CONFIG_FORMAT",
                     context={"file": str(config_file), "error": str(e)}
                 ) from e
             except Exception as e:
@@ -123,22 +133,27 @@ class ConfigurationManager:
     
     def _apply_environment_overrides(self) -> None:
         """Apply environment-specific configuration overrides."""
-        env_config_file = self.config_path / f"{self.environment}.json"
-        
-        if env_config_file.exists():
-            try:
-                with open(env_config_file, 'r', encoding='utf-8') as f:
-                    env_config = json.load(f)
-                
-                # Deep merge environment overrides
-                self._deep_merge(self.config_data, env_config)
-                
-                self.logger.debug(f"Applied environment overrides: {self.environment}")
-                
-            except Exception as e:
-                self.logger.warning(
-                    f"Failed to load environment overrides: {env_config_file}, error: {str(e)}"
-                )
+        for ext in ["json", "yaml", "yml"]:
+            env_config_file = self.config_path / f"{self.environment}.{ext}"
+            if env_config_file.exists():
+                try:
+                    with open(env_config_file, 'r', encoding='utf-8') as f:
+                        if ext in ("yaml", "yml"):
+                            env_config = yaml.safe_load(f)
+                        else:
+                            env_config = json.load(f)
+                    
+                    # Deep merge environment overrides
+                    self._deep_merge(self.config_data, env_config)
+                    
+                    self.logger.debug(f"Applied environment overrides from: {env_config_file}")
+                    
+                except Exception as e:
+                    self.logger.warning(
+                        f"Failed to load environment overrides: {env_config_file}, error: {str(e)}"
+                    )
+                break
+
     
     def _apply_env_var_overrides(self) -> None:
         """Apply environment variable overrides."""
@@ -149,6 +164,46 @@ class ConfigurationManager:
                 config_key = key[len(env_prefix):].lower().replace('_', '.')
                 self._set_nested_value(self.config_data, config_key, self._parse_env_value(value))
                 self.logger.debug(f"Applied environment variable override: {config_key}")
+
+    def _apply_cloud_secrets_overrides(self) -> None:
+        """Apply overrides from cloud secrets managers."""
+        cloud_provider = self.get("cloud_provider", "local")
+        if cloud_provider == "aws":
+            self._load_aws_secrets()
+
+    def _load_aws_secrets(self) -> None:
+        """Load secrets from AWS Secrets Manager."""
+        secrets_config = self.get("secrets.aws", [])
+        if not secrets_config:
+            return
+
+        try:
+            import boto3
+            secretsmanager_client = boto3.client("secretsmanager")
+
+            for secret_conf in secrets_config:
+                secret_name = secret_conf.get("name")
+                mapping = secret_conf.get("mapping", {})
+
+                if not secret_name or not mapping:
+                    continue
+
+                try:
+                    response = secretsmanager_client.get_secret_value(SecretId=secret_name)
+                    secret_data = json.loads(response["SecretString"])
+
+                    for secret_key, config_key in mapping.items():
+                        if secret_key in secret_data:
+                            self._set_nested_value(self.config_data, config_key, secret_data[secret_key])
+                            self.logger.debug(f"Loaded secret '{secret_key}' from AWS Secrets Manager")
+
+                except Exception as e:
+                    self.logger.warning(f"Failed to load secret '{secret_name}' from AWS: {e}")
+
+        except ImportError:
+            self.logger.warning("boto3 is not installed. Cannot load secrets from AWS.")
+        except Exception as e:
+            self.logger.error(f"An error occurred while loading secrets from AWS: {e}")
     
     def _deep_merge(self, base: Dict[str, Any], override: Dict[str, Any]) -> None:
         """

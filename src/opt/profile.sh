@@ -20,6 +20,46 @@ export PYTHON_VERSION="${PYTHON_VERSION:-3.12}"
 export PYSPARK_PYTHON="${PYSPARK_PYTHON:-python3}"
 export PYSPARK_DRIVER_PYTHON="${PYSPARK_DRIVER_PYTHON:-python3}"
 
+# Cloud provider auto-detection
+if [[ -z "${CLOUD_PROVIDER}" ]]; then
+    if command -v aws &> /dev/null; then
+        export CLOUD_PROVIDER="aws"
+    elif command -v gcloud &> /dev/null; then
+        export CLOUD_PROVIDER="gcp"
+    elif command -v az &> /dev/null; then
+        export CLOUD_PROVIDER="azure"
+    else
+        export CLOUD_PROVIDER="local"
+    fi
+fi
+
+# Function to assume cloud role
+assume_cloud_role() {
+    case "${CLOUD_PROVIDER}" in
+        aws)
+            # Assume IAM role if specified
+            if [[ -n "${AWS_ROLE_ARN}" ]]; then
+                creds=$(aws sts assume-role --role-arn "${AWS_ROLE_ARN}" --role-session-name "igniteflow-session" --output json)
+                export AWS_ACCESS_KEY_ID=$(echo "${creds}" | jq -r .Credentials.AccessKeyId)
+                export AWS_SECRET_ACCESS_KEY=$(echo "${creds}" | jq -r .Credentials.SecretAccessKey)
+                export AWS_SESSION_TOKEN=$(echo "${creds}" | jq -r .Credentials.SessionToken)
+            fi
+            ;;
+        gcp)
+            # Activate service account if specified
+            if [[ -n "${GCP_SERVICE_ACCOUNT_KEY_FILE}" ]]; then
+                gcloud auth activate-service-account --key-file="${GCP_SERVICE_ACCOUNT_KEY_FILE}"
+            fi
+            ;;
+        azure)
+            # Login with service principal if specified
+            if [[ -n "${AZURE_SP_TENANT_ID}" ]] && [[ -n "${AZURE_SP_APP_ID}" ]] && [[ -n "${AZURE_SP_PASSWORD}" ]]; then
+                az login --service-principal -u "${AZURE_SP_APP_ID}" -p "${AZURE_SP_PASSWORD}" --tenant "${AZURE_SP_TENANT_ID}" > /dev/null
+            fi
+            ;;
+    esac
+}
+
 # Spark configuration based on environment
 case "${IGNITEFLOW_ENV}" in
     local)
@@ -47,32 +87,25 @@ export LOGS_PATH="${PROJECT_ROOT}/logs"
 export DATA_PATH="${PROJECT_ROOT}/data"
 
 # Data storage paths (cloud-native)
-case "${IGNITEFLOW_ENV}" in
-    local)
-        export DATA_RAW_PATH="${DATA_PATH}/raw"
-        export DATA_PROCESSED_PATH="${DATA_PATH}/processed"
-        export DATA_MODELS_PATH="${DATA_PATH}/models"
-        export DATA_CHECKPOINTS_PATH="${DATA_PATH}/checkpoints"
+case "${CLOUD_PROVIDER}" in
+    aws)
+        DATA_BUCKET_PREFIX="s3a://igniteflow-${IGNITEFLOW_ENV}"
         ;;
-    dev)
-        export DATA_RAW_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-dev}/raw"
-        export DATA_PROCESSED_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-dev}/processed"
-        export DATA_MODELS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-dev}/models"
-        export DATA_CHECKPOINTS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-dev}/checkpoints"
+    gcp)
+        DATA_BUCKET_PREFIX="gs://igniteflow-${IGNITEFLOW_ENV}"
         ;;
-    staging)
-        export DATA_RAW_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-staging}/raw"
-        export DATA_PROCESSED_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-staging}/processed"
-        export DATA_MODELS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-staging}/models"
-        export DATA_CHECKPOINTS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-staging}/checkpoints"
+    azure)
+        DATA_BUCKET_PREFIX="abfs://igniteflow@igniteflow${IGNITEFLOW_ENV}.dfs.core.windows.net"
         ;;
-    prod)
-        export DATA_RAW_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-prod}/raw"
-        export DATA_PROCESSED_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-prod}/processed"
-        export DATA_MODELS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-prod}/models"
-        export DATA_CHECKPOINTS_PATH="${DATA_BUCKET_PREFIX:-s3a://igniteflow-prod}/checkpoints"
+    *)
+        DATA_BUCKET_PREFIX="${DATA_PATH}"
         ;;
 esac
+
+export DATA_RAW_PATH="${DATA_BUCKET_PREFIX}/raw"
+export DATA_PROCESSED_PATH="${DATA_BUCKET_PREFIX}/processed"
+export DATA_MODELS_PATH="${DATA_BUCKET_PREFIX}/models"
+export DATA_CHECKPOINTS_PATH="${DATA_BUCKET_PREFIX}/checkpoints"
 
 # Logging configuration
 export LOG_LEVEL="${LOG_LEVEL:-INFO}"
@@ -106,17 +139,10 @@ create_directories() {
     local dirs=(
         "${LOGS_PATH}"
         "${DATA_PATH}"
-        "${DATA_RAW_PATH}"
-        "${DATA_PROCESSED_PATH}"
-        "${DATA_MODELS_PATH}"
-        "${DATA_CHECKPOINTS_PATH}"
     )
     
     for dir in "${dirs[@]}"; do
-        # Only create local directories, not cloud storage paths
-        if [[ "${dir}" != s3a://* ]] && [[ "${dir}" != gs://* ]] && [[ "${dir}" != abfs://* ]]; then
-            mkdir -p "${dir}" 2>/dev/null || true
-        fi
+        mkdir -p "${dir}" 2>/dev/null || true
     done
 }
 
@@ -142,6 +168,11 @@ validate_environment() {
     if [[ -n "${JAVA_HOME}" ]] && [[ ! -d "${JAVA_HOME}" ]]; then
         errors+=("Java home not found: ${JAVA_HOME}")
     fi
+
+    # Check cloud CLI tools
+    if [[ "${CLOUD_PROVIDER}" != "local" ]] && ! command -v "${CLOUD_PROVIDER}" &> /dev/null; then
+        errors+=("Cloud CLI not found: ${CLOUD_PROVIDER}")
+    fi
     
     if [[ ${#errors[@]} -gt 0 ]]; then
         echo "Environment validation errors:" >&2
@@ -158,6 +189,7 @@ print_environment_summary() {
 IgniteFlow Environment Configuration
 ===================================
 Environment: ${IGNITEFLOW_ENV}
+Cloud Provider: ${CLOUD_PROVIDER}
 Project Root: ${PROJECT_ROOT}
 Python: ${PYSPARK_PYTHON}
 Java Home: ${JAVA_HOME}
@@ -177,6 +209,9 @@ initialize_environment() {
         echo "Environment validation failed" >&2
         return 1
     fi
+
+    # Assume cloud role
+    assume_cloud_role
     
     # Add Python paths
     export PYTHONPATH="${SRC_PATH}:${PYTHONPATH:-}"
