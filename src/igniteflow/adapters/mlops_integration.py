@@ -432,31 +432,68 @@ class ModelMonitor:
         
         self.logger.info("Model monitor initialized")
     
-    def check_data_drift(self, reference_data: Any, current_data: Any) -> Dict[str, float]:
+    def check_data_drift(self, reference_data: Any, current_data: Any, columns: List[str], bins: int = 10) -> Dict[str, float]:
         """
-        Check for data drift between reference and current datasets.
+        Check for data drift between reference and current datasets using PSI.
         
         Args:
-            reference_data: Reference dataset (training data)
-            current_data: Current dataset (production data)
+            reference_data: Reference DataFrame (training data)
+            current_data: Current DataFrame (production data)
+            columns: List of columns to check for drift
+            bins: Number of bins for continuous variables
             
         Returns:
             Dictionary with drift metrics
         """
-        # Placeholder implementation
-        # In practice, this would implement statistical tests like:
-        # - Kolmogorov-Smirnov test
-        # - Population Stability Index (PSI)
-        # - Jensen-Shannon divergence
-        
+        if not self.monitoring_enabled:
+            return {}
+
+        psi_scores = {}
+        drift_detected_count = 0
+
+        for col_name in columns:
+            # Calculate PSI for the column
+            psi = self._calculate_psi(reference_data, current_data, col_name, bins)
+            psi_scores[col_name] = psi
+
+            if psi > self.drift_threshold:
+                drift_detected_count += 1
+                self.logger.warning(f"Data drift detected in column '{col_name}' with PSI: {psi:.4f}")
+
+        overall_drift_score = sum(psi_scores.values()) / len(psi_scores) if psi_scores else 0.0
+        drift_detected = overall_drift_score > self.drift_threshold
+
         drift_metrics = {
-            "overall_drift_score": 0.05,  # Placeholder
-            "feature_drift_count": 0,
-            "drift_detected": False
+            "overall_drift_score": overall_drift_score,
+            "feature_drift_count": drift_detected_count,
+            "drift_detected": drift_detected,
+            "psi_scores": psi_scores
         }
         
         self.logger.info(f"Data drift check completed: {drift_metrics}")
         return drift_metrics
+
+    def _calculate_psi(self, ref_df: Any, cur_df: Any, column: str, bins: int) -> float:
+        """Calculate Population Stability Index (PSI) for a single column."""
+        # Bin the data
+        ref_binned = ref_df.select(column).rdd.flatMap(lambda x: x).histogram(bins)
+        cur_binned = cur_df.select(column).rdd.flatMap(lambda x: x).histogram(bins)
+
+        # Calculate percentages
+        ref_total = sum(ref_binned[1])
+        cur_total = sum(cur_binned[1])
+
+        ref_dist = [x / ref_total if ref_total > 0 else 0 for x in ref_binned[1]]
+        cur_dist = [x / cur_total if cur_total > 0 else 0 for x in cur_binned[1]]
+
+        # Calculate PSI
+        psi = 0
+        for i in range(len(ref_dist)):
+            if ref_dist[i] == 0 or cur_dist[i] == 0:
+                continue
+            psi += (cur_dist[i] - ref_dist[i]) * ((cur_dist[i] / ref_dist[i]) ** 0.5)
+
+        return psi
     
     def check_model_performance(self, predictions: Any, actuals: Any) -> Dict[str, float]:
         """

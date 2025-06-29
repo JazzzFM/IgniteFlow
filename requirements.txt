@@ -91,6 +91,7 @@ pathlib2>=2.3.7
 # Time & Date Handling
 pendulum>=2.1.2
 python-dateutil>=2.8.0
+dependency-injector>=4.41.0
 
 # Cryptography & Security
 cryptography>=41.0.0

@@ -22,37 +22,27 @@ from igniteflow_core.config import ConfigurationManager
 from igniteflow_core.logging import setup_logging
 from igniteflow_core.spark import SparkSessionManager
 from igniteflow_core.metrics import MetricsCollector
+from igniteflow_core.container import IgniteFlowContainer
 from igniteflow_core.exceptions import IgniteFlowError
+from igniteflow_core.utils import setup_project_path, auto_detect_config_path
 
 
 class IgniteFlowApplication:
     """
     Main IgniteFlow application orchestrator.
-    
-    This class implements the Single Responsibility Principle by focusing
-    solely on application orchestration and lifecycle management.
-    
-    Attributes:
-        config: Configuration manager instance
-        spark_manager: Spark session manager
-        metrics: Metrics collector for observability
     """
     
-    def __init__(self, config_path: str, environment: str) -> None:
-        """
-        Initialize the IgniteFlow application.
-        
-        Args:
-            config_path: Path to configuration directory
-            environment: Target environment (local, dev, staging, prod)
-            
-        Raises:
-            IgniteFlowError: If initialization fails
-        """
-        self.config = ConfigurationManager(config_path, environment)
-        self.spark_manager = SparkSessionManager(self.config)
-        self.metrics = MetricsCollector()
-        self.logger = logging.getLogger(__name__)
+    def __init__(
+        self,
+        config_manager: ConfigurationManager,
+        spark_manager: SparkSessionManager,
+        metrics_collector: MetricsCollector,
+        logger: logging.Logger,
+    ) -> None:
+        self.config_manager = config_manager
+        self.spark_manager = spark_manager
+        self.metrics_collector = metrics_collector
+        self.logger = logger
         
     def run_job(self, job_name: str) -> None:
         """
@@ -203,63 +193,12 @@ Examples:
         return parser.parse_args()
 
 
-def setup_project_path() -> None:
-    """
-    Set up Python path for IgniteFlow modules.
-    
-    This ensures that all IgniteFlow modules can be imported correctly
-    regardless of the execution context.
-    """
-    # Get project root directory
-    current_dir = Path(__file__).parent
-    project_root = current_dir.parent.parent
-    src_path = project_root / "src"
-    
-    # Add to Python path if not already present
-    src_path_str = str(src_path)
-    if src_path_str not in sys.path:
-        sys.path.insert(0, src_path_str)
 
-
-def auto_detect_config_path() -> str:
-    """
-    Auto-detect configuration path based on project structure.
-    
-    Returns:
-        Path to configuration directory
-        
-    Raises:
-        IgniteFlowError: If config path cannot be determined
-    """
-    # Try environment variable first
-    if config_path := os.getenv("IGNITEFLOW_CONFIG_PATH"):
-        return config_path
-    
-    # Auto-detect based on script location
-    current_dir = Path(__file__).parent
-    project_root = current_dir.parent.parent
-    config_path = project_root / "src" / "config"
-    
-    if config_path.exists():
-        return str(config_path)
-    
-    # Fallback to legacy path
-    legacy_config_path = current_dir.parent / "config"
-    if legacy_config_path.exists():
-        return str(legacy_config_path)
-    
-    raise IgniteFlowError(f"Could not auto-detect config path. Please specify --config-path")
 
 
 def main() -> None:
     """
     Main application entry point.
-    
-    This function orchestrates the entire application lifecycle:
-    1. Parse command line arguments
-    2. Set up logging and paths
-    3. Initialize and run the application
-    4. Handle errors gracefully
     """
     try:
         # Parse arguments
@@ -271,6 +210,12 @@ def main() -> None:
         # Determine config path
         config_path = args.config_path or auto_detect_config_path()
         
+        # Initialize container
+        container = IgniteFlowContainer(
+            config__config_path=config_path,
+            config__environment=args.environment,
+        )
+
         # Set up logging
         setup_logging(
             level=args.log_level,
@@ -278,24 +223,23 @@ def main() -> None:
             environment=args.environment
         )
         
-        logger = logging.getLogger(__name__)
+        logger = container.logger(name=__name__)
         logger.info("IgniteFlow application starting...")
-        
-        # Log startup information
-        logger.info(f"Job: {args.job}")
-        logger.info(f"Environment: {args.environment}")
-        logger.info(f"Config Path: {config_path}")
-        logger.info(f"Python Path: {sys.path[:3]}...")  # Show first 3 entries
         
         # Dry run mode - validate configuration only
         if args.dry_run:
             logger.info("Dry run mode - validating configuration...")
-            app = IgniteFlowApplication(config_path, args.environment)
+            container.config()
             logger.info("Configuration validation successful")
             return
         
         # Initialize and run application
-        app = IgniteFlowApplication(config_path, args.environment)
+        app = IgniteFlowApplication(
+            config_manager=container.config(),
+            spark_manager=container.spark_manager(),
+            metrics_collector=container.metrics_collector(),
+            logger=logger,
+        )
         app.run_job(args.job)
         
         logger.info("IgniteFlow application completed successfully")

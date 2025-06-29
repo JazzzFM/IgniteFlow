@@ -177,6 +177,10 @@ class SparkSessionManager:
         # Custom configurations from config
         custom_configs = self.spark_config.get("configs", {})
         spark_configs.update(custom_configs)
+
+        # Cloud-specific configurations
+        cloud_configs = self._get_cloud_configs()
+        spark_configs.update(cloud_configs)
         
         # Apply all configurations
         for key, value in spark_configs.items():
@@ -255,6 +259,32 @@ class SparkSessionManager:
                     "spark.sql.adaptive.coalescePartitions.minPartitionSize": "64MB"
                 })
         
+        return configs
+
+    def _get_cloud_configs(self) -> Dict[str, Any]:
+        """Get cloud-specific configurations."""
+        cloud_provider = self.config.get("cloud_provider", "local")
+        configs = {}
+
+        if cloud_provider == "aws":
+            configs.update({
+                "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
+                "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.4",
+            })
+        elif cloud_provider == "gcp":
+            configs.update({
+                "spark.hadoop.fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem",
+                "spark.jars.packages": "com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.23.2,com.google.cloud.bigdataoss:gcs-connector:hadoop3-2.2.5",
+            })
+        elif cloud_provider == "azure":
+            storage_account = self.config.get("azure.storage_account")
+            storage_key = self.config.get("azure.storage_key")
+            if storage_account and storage_key:
+                configs.update({
+                    f"spark.hadoop.fs.azure.account.key.{storage_account}.dfs.core.windows.net": storage_key,
+                    "spark.jars.packages": "org.apache.hadoop:hadoop-azure:3.3.4,com.microsoft.azure:azure-storage:8.6.6",
+                })
+
         return configs
     
     def _apply_session_configurations(self) -> None:

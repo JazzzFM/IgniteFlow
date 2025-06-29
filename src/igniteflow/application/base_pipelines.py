@@ -9,6 +9,8 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional, Union
 import logging
 
+from igniteflow.domain.exceptions import IgniteFlowError
+
 # Optional PySpark import
 try:
     from pyspark.sql import SparkSession
@@ -40,7 +42,7 @@ class BasePipeline(ABC):
             config: Configuration dictionary
         """
         if not SPARK_AVAILABLE and spark is not None:
-            raise ImportError("PySpark is required but not available")
+            raise IgniteFlowError("PySpark is required but not available")
             
         self.spark = spark
         self.config = config

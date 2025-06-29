@@ -159,9 +159,10 @@ IgniteFlow is designed for organizations that need:
 
 ### ☁️ **Cloud-Native**
 - ✅ **Kubernetes Ready**: Native K8s deployment with Helm charts
+- ✅ **Multi-Cloud Support**: Seamless integration with AWS, GCP, and Azure
 - ✅ **Auto-Scaling**: Horizontal pod autoscaling (HPA)
 - ✅ **Service Discovery**: Kubernetes service mesh integration
-- ✅ **Secret Management**: Kubernetes secrets and ConfigMaps
+- ✅ **Secret Management**: Integration with AWS Secrets Manager and other cloud secret stores
 
 ---
 
@@ -302,44 +303,39 @@ graph TB
 
 ## 📁 Project Structure
 
+The project is organized into the following directories:
+
 ```
 IgniteFlow/
 ├── 📦 src/                           # Source code
 │   ├── 🔧 igniteflow_core/           # Core framework modules
-│   │   ├── __init__.py               # Package initialization with graceful imports
-│   │   ├── exceptions.py             # Exception hierarchy
-│   │   ├── config.py                 # Configuration management (287 lines)
-│   │   ├── base.py                   # Abstract pipeline classes (367 lines)
-│   │   ├── spark.py                  # Spark session management (447 lines)
-│   │   ├── logging.py                # Structured logging system (447 lines)
-│   │   ├── metrics.py                # Metrics collection (597 lines)
-│   │   ├── data_quality.py           # Data quality validation (567 lines)
-│   │   └── mlops.py                  # MLOps integration (687 lines)
+│   │   ├── __init__.py               # Package initialization
+│   │   ├── base.py                   # Abstract pipeline classes
+│   │   ├── config.py                 # Configuration management
+│   │   ├── data_quality.py           # Data quality validation
+│   │   ├── exceptions.py             # Custom exception hierarchy
+│   │   ├── logging.py                # Structured logging system
+│   │   ├── metrics.py                # Metrics collection
+│   │   ├── mlops.py                  # MLOps integration (MLflow, SageMaker)
+│   │   └── spark.py                  # Spark session management
 │   │
-│   ├── 📊 examples/                  # Production-ready examples
+│   ├── 📊 examples/                  # Production-ready example pipelines
 │   │   ├── fraud_detection/          # Fraud detection pipeline
-│   │   │   └── pipeline.py           # Advanced ML pipeline (267 lines)
+│   │   │   └── pipeline.py           # Advanced ML pipeline for fraud detection
 │   │   └── recommendation_system/    # Recommendation engine
-│   │       └── pipeline.py           # Collaborative filtering (203 lines)
+│   │       └── pipeline.py           # Collaborative filtering pipeline
 │   │
 │   ├── 🧪 tests/                     # Comprehensive test suite
-│   │   ├── conftest.py               # Test configuration & fixtures (322 lines)
-│   │   ├── unit/                     # Unit tests (95%+ coverage)
-│   │   │   ├── test_config.py        # Configuration tests (273 lines)
-│   │   │   ├── test_spark.py         # Spark management tests (272 lines)
-│   │   │   ├── test_logging.py       # Logging tests (254 lines)
-│   │   │   ├── test_metrics.py       # Metrics tests (423 lines)
-│   │   │   ├── test_data_quality.py  # Data quality tests (423 lines)
-│   │   │   └── test_mlops.py         # MLOps tests (563 lines)
-│   │   └── integration/              # Integration tests
-│   │       └── test_pipeline_integration.py  # E2E tests (393 lines)
+│   │   ├── conftest.py               # Test configuration and fixtures
+│   │   ├── unit/                     # Unit tests for core modules
+│   │   └── integration/              # Integration tests for pipelines
 │   │
 │   ├── 🗂️ opt/                       # Operational scripts
-│   │   ├── spark_exe.sh              # Modernized Spark executor (267 lines)
-│   │   └── profile.sh                # Cloud-native environment setup (298 lines)
+│   │   ├── spark_exe.sh              # Spark executor script
+│   │   └── profile.sh                # Environment setup script
 │   │
 │   └── 🎯 bin/                       # Entry points
-│       └── main.py                   # Application entry point (187 lines)
+│       └── main.py                   # Main application entry point
 │
 ├── 📋 config/                        # Configuration files
 │   ├── base.json                     # Base configuration
@@ -371,11 +367,11 @@ IgniteFlow/
 ├── 🧪 Testing & Quality
 │   ├── pytest.ini                   # PyTest configuration
 │   ├── requirements-test.txt         # Testing dependencies
-│   └── run_tests.py                  # Standalone test runner (248 lines)
+│   └── run_tests.py                  # Standalone test runner
 │
 ├── 📚 Documentation
 │   ├── README.md                     # This comprehensive guide
-│   ├── ARCHITECTURE.md               # Detailed architecture docs
+│   ├── ARCHITECTURE.md               # Detailed architecture guide
 │   ├── DEPLOYMENT.md                 # Deployment instructions
 │   └── API.md                        # API documentation
 │
@@ -415,7 +411,7 @@ cd IgniteFlow
 
 # 2. Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 
 # 3. Install core dependencies (minimal setup)
 pip install -r requirements.txt
@@ -450,7 +446,7 @@ docker build -t igniteflow:latest .
 docker-compose up -d
 
 # Run example pipeline
-docker exec -it igniteflow_app python src/examples/fraud_detection/pipeline.py
+docker exec -it igniteflow_app python src/bin/main.py --job fraud_detection --environment local
 ```
 
 ---
@@ -674,44 +670,27 @@ class CustomETLPipeline(BasePipeline):
 
 ### 🎯 **Multi-Environment Configuration**
 
-IgniteFlow uses a sophisticated configuration system supporting multiple environments:
+IgniteFlow uses a sophisticated configuration system supporting multiple environments, file formats (JSON, YAML), and secrets management integration.
 
-```json
-{
-  "app_config": {
-    "name": "IgniteFlow",
-    "version": "1.0.0",
-    "environment": "production"
-  },
-  "spark_config": {
-    "app_name": "IgniteFlow-Production",
-    "master": "k8s://https://kubernetes.default.svc:443",
-    "driver_memory": "4g",
-    "executor_memory": "8g",
-    "executor_instances": 10,
-    "configs": {
-      "spark.sql.adaptive.enabled": "true",
-      "spark.sql.adaptive.coalescePartitions.enabled": "true",
-      "spark.kubernetes.authenticate.driver.serviceAccountName": "igniteflow"
-    }
-  },
-  "data_quality": {
-    "enabled": true,
-    "fail_on_error": true,
-    "rules": [
-      {
-        "type": "completeness",
-        "column": "customer_id",
-        "threshold": 0.99
-      }
-    ]
-  },
-  "mlflow": {
-    "enabled": true,
-    "tracking_uri": "https://mlflow.company.com",
-    "experiment_name": "fraud-detection-prod"
-  }
-}
+```yaml
+# Example of a YAML configuration file (e.g., config/dev.yaml)
+app_config:
+  name: IgniteFlow
+  version: 1.0.0
+  environment: development
+
+spark_config:
+  app_name: IgniteFlow-Dev
+  master: k8s://https://kubernetes.default.svc:443
+  driver_memory: 2g
+  executor_memory: 4g
+
+secrets:
+  aws:
+    - name: igniteflow/dev/database_credentials
+      mapping:
+        username: database.user
+        password: database.password
 ```
 
 ### 🔧 **Environment Variables**
@@ -1168,6 +1147,8 @@ Step-by-step tutorials for different scenarios:
 ---
 
 ## 🤝 Contributing
+
+We welcome contributions from the community! Please read our [contributing guidelines](docs/CONTRIBUTING.md) to get started.
 
 ### 🎯 **How to Contribute**
 
