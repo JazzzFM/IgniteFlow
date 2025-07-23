@@ -1,0 +1,25 @@
+Hi Jaziel, hope you are doing well
+
+Following up on what we discussed during the interview, I’m sending you the assessment for the AI Scientist (Tech Lead) position.
+
+Our goal is to understand how you approach real-world problems. In modern AI development, knowing how to effectively partner with tools like AI assistants is just as important as foundational knowledge. With that in mind, our next step is a short, practical exercise that you can complete on your own time. We encourage you to use any AI assistants, search engines, or other tools you see fit. We are most interested in your process and your approach to problem-solving.
+
+The Scenario & Your Task
+You will find a small Python project in the Git repository attached. 
+The project contains a script (slow_scheduler.py) that simulates manufacturing schedules to find an optimal configuration. It works, but it's slow and not well-structured.
+
+Your task is to analyze, critique, and refactor this script into a more robust and efficient tool.
+
+Deliverables
+Once you are finished, please provide us with the following:
+
+Your Solution: 
+A link to a new Git repository containing your final, improved version of the script and any other files you created.
+A Brief Write-up: A short document (e.g., a README.md in your repository) detailing your workflow. 
+Please include your reasoning for the changes, any key prompts you used with AI assistants, and how you verified the improvements.
+A Short Video Walkthrough: A brief (~5-minute) screen recording (using a tool like Loom) where you walk us through the most important changes you made and explain your thought process in English.
+
+Timeline
+Take the time you need to create a result you’re proud of. Ideally, we’d appreciate it if you could send us your solution within the next 3–4 days by replying to this email (please make sure to copy both Adrian and me), including the link to your repository and video.
+This exercise is designed to give us a glimpse into how you work. We're excited to see what you come up with. Please don't hesitate to reach out if you have any clarifying questions.
+
